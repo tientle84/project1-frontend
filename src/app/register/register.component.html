@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="text-center">
+          <h1>Register</h1>
+        </div>
+        <form [formGroup]="registerForm" (ngSubmit)="register()">
+          <div class="mb-3">
+            <label for="inputFirstName" class="form-label">First Name</label>
+            <input
+              formControlName="firstName"
+              type="text"
+              class="form-control"
+              id="inputFirstName"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="inputLastName" class="form-label">Last Name</label>
+            <input
+              formControlName="lastName"
+              type="text"
+              class="form-control"
+              id="inputLastName"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="inputUsername" class="form-label">Username</label>
+            <input
+              formControlName="username"
+              type="text"
+              class="form-control"
+              id="inputUsername"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="inputPassword" class="form-label">Password</label>
+            <input
+              formControlName="password"
+              type="password"
+              class="form-control"
+              id="inputPassword"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="inputEmail" class="form-label">Email Address</label>
+            <input
+              formControlName="email"
+              type="email"
+              class="form-control"
+              id="inputEmail"
+            />
+          </div>
+          <button mat-raised-button color="warn">Register</button>
+        </form>
+        <a routerLink="/login">Already registered? Login</a>
+      </div>
+    </div>
+  </div>
+</div>
