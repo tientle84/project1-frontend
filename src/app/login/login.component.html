@@ -1,33 +1,35 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-6">
-      <div class="card">
-        <div class="text-center">
-          <h1>Login</h1>
-        </div>
-        <form [formGroup]="loginForm" (ngSubmit)="login()">
-          <div class="mb-3">
-            <label for="inputUsername" class="form-label">Email address</label>
-            <input
-              formControlName="username"
-              type="text"
-              class="form-control"
-              id="inputUsername"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="inputPassword" class="form-label">Password</label>
-            <input
-              formControlName="password"
-              type="password"
-              class="form-control"
-              id="inputPassword"
-            />
-          </div>
-          <button type="submit" class="btn btn-primary">Login</button>
-        </form>
-        <a routerLink="/register">Don't have an account? Register</a>
+<div class="wrapper" fxLayout="row" fxLayoutAlign="center start">
+  <mat-card class="box">
+    <mat-card-header>Login</mat-card-header>
+    <form [formGroup]="loginForm">
+      <mat-card-content>
+        <mat-form-field class="example-full-width">
+          <input formControlName="username" matInput placeholder="Username" />
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-content>
+        <mat-form-field class="example-full-width">
+          <input
+            formControlName="password"
+            matInput
+            type="password"
+            placeholder="Password"
+          />
+        </mat-form-field>
+      </mat-card-content>
+      <button
+        mat-raised-button
+        color="warn"
+        class="btn-block"
+        (click)="login()"
+      >
+        Login
+      </button>
+      <div class="router-link">
+        <a style="color: black; text-decoration: none" routerLink="/register"
+          >Don't have an account? Register</a
+        >
       </div>
-    </div>
-  </div>
+    </form>
+  </mat-card>
 </div>

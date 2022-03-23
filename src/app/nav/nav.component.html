@@ -1,0 +1,17 @@
+<mat-toolbar color="primary">
+  <button
+    mat-icon-button
+    class="example-icon"
+    aria-label="Example icon-button with menu icon"
+  >
+    <mat-icon>account_balance_wallet</mat-icon>
+  </button>
+  <span>Revature Reimbursement System</span>
+  <span class="example-spacer"></span>
+  <div *ngIf="!isLoggedIn()">
+    <a routerLink="/login">Login</a>
+  </div>
+  <div *ngIf="isLoggedIn()">
+    <a routerLink="/login" (click)="logout()">Logout</a>
+  </div>
+</mat-toolbar>

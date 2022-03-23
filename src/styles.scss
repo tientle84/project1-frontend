@@ -1,4 +1,53 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: #e2e2e2;
+}
+
+.wrapper {
+  width: 100%;
+  margin-top: 50px;
+}
+
+.box {
+  position: relative;
+  top: 0;
+  width: 100%;
+  background: #fff;
+  border-radius: 10px;
+  max-width: 350px;
+}
+
+.wrapper .example-form {
+  min-width: 100%;
+  max-width: 500px;
+  width: 100%;
+}
+
+.wrapper .example-full-width,
+.wrapper .btn-block {
+  width: 100%;
+}
+
+.wrapper .mat-card-header {
+  text-align: center;
+  width: 100%;
+  display: block;
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+.wrapper .mat-card {
+  padding: 50px 70px;
+}
+
+.router-link {
+  text-align: center;
+  margin-top: 10px;
+}
