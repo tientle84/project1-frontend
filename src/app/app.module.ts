@@ -18,6 +18,8 @@ import { RouterModule } from '@angular/router';
 import { AuthGuard } from './auth.guard';
 import { UserService } from './services/user.service';
 import { RoleGuard } from './role.guard';
+import { MatDialogModule } from '@angular/material/dialog';
+import { EmpDialogComponent } from './emp-dialog/emp-dialog.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import { RoleGuard } from './role.guard';
     Page404Component,
     ReimbEmployeeComponent,
     ReimbManagerComponent,
+    EmpDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +41,7 @@ import { RoleGuard } from './role.guard';
     HttpClientModule,
     AngularMaterialModule,
     FlexLayoutModule,
+    MatDialogModule,
   ],
   providers: [
     AuthGuard,

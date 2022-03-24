@@ -13,7 +13,9 @@
   <div
     style="display: flex; width: 15%; justify-content: end; align-items: center"
   >
-    <button mat-raised-button color="primary">Add Request</button>
+    <button mat-raised-button color="primary" (click)="openDialog()">
+      Add Request
+    </button>
   </div>
 </div>
 
@@ -27,12 +29,6 @@
       </td>
     </ng-container>
 
-    <!-- typeId column -->
-    <ng-container matColumnDef="reimbursementTypeId">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
-      <td mat-cell *matCellDef="let row">{{ row.reimbursementTypeId }}</td>
-    </ng-container>
-
     <!-- amount column -->
     <ng-container matColumnDef="reimbursementAmount">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Amount</th>
@@ -42,26 +38,38 @@
     <!-- resolved column -->
     <ng-container matColumnDef="reimbursementResolved">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Resolved Date</th>
-      <td mat-cell *matCellDef="let row">{{ row.reimbursementResolved }}</td>
+      <td mat-cell *matCellDef="let row">
+        {{ row.reimbursementResolved || "N/A" }}
+      </td>
+    </ng-container>
+
+    <!-- type column -->
+    <ng-container matColumnDef="reimbursementType">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+      <td mat-cell *matCellDef="let row">{{ row.reimbursementType }}</td>
     </ng-container>
 
     <!-- resolver column -->
-    <ng-container matColumnDef="reimbursementResolver">
+    <ng-container matColumnDef="resolverFullName">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Resolver</th>
-      <td mat-cell *matCellDef="let row">{{ row.reimbursementResolver }}</td>
+      <td mat-cell *matCellDef="let row">
+        {{ row.resolverFullName || "N/A" }}
+      </td>
     </ng-container>
 
-    <!-- statusId column -->
-    <ng-container matColumnDef="reimbursementStatusId">
+    <!-- status column -->
+    <ng-container matColumnDef="reimbursementStatus">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
-      <td mat-cell *matCellDef="let row">{{ row.reimbursementStatusId }}</td>
+      <td mat-cell *matCellDef="let row">
+        {{ row.reimbursementStatus }}
+      </td>
     </ng-container>
 
     <!-- actions column -->
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
       <td mat-cell *matCellDef="let row">
-        <button mat-icon-button color="primary">
+        <button mat-icon-button color="primary" (click)="editRequest(row)">
           <mat-icon>edit</mat-icon>
         </button>
         <button mat-icon-button color="warn">

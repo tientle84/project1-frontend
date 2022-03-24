@@ -1,0 +1,66 @@
+<h1 mat-dialog-title>Add reimbursement request</h1>
+<div mat-dialog-content>
+  <form [formGroup]="reimbRequestForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Amount</mat-label>
+      <input formControlName="reimbursementAmount" matInput />
+      <div
+        *ngIf="
+          reimbRequestForm.controls['reimbursementAmount'].invalid &&
+          reimbRequestForm.controls['reimbursementAmount'].touched
+        "
+      >
+        Please enter a valid amount.
+      </div>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Description</mat-label>
+      <input formControlName="reimbursementDescription" matInput />
+      <div
+        *ngIf="
+          reimbRequestForm.controls['reimbursementDescription'].invalid &&
+          reimbRequestForm.controls['reimbursementDescription'].touched
+        "
+      >
+        Please enter description.
+      </div>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Receipt Image</mat-label>
+      <input formControlName="reimbursementReceipt" matInput />
+      <div
+        *ngIf="
+          reimbRequestForm.controls['reimbursementReceipt'].invalid &&
+          reimbRequestForm.controls['reimbursementReceipt'].touched
+        "
+      >
+        Please upload your receipt image file.
+      </div>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Type</mat-label>
+      <input formControlName="reimbursementTypeId" matInput />
+      <div
+        *ngIf="
+          reimbRequestForm.controls['reimbursementTypeId'].invalid &&
+          reimbRequestForm.controls['reimbursementTypeId'].touched
+        "
+      >
+        Please select your reimbursement type.
+      </div>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions [align]="'end'">
+  <button mat-raised-button color="warn" (click)="addRequest()">
+    {{ actionBtn }}
+  </button>
+  <button
+    style="margin-left: 10px"
+    mat-raised-button
+    color="primary"
+    mat-dialog-close
+  >
+    Close
+  </button>
+</div>

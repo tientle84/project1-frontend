@@ -4,6 +4,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ReimbService } from '../services/reimb.service';
 import { UserService } from '../services/user.service';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { EmpDialogComponent } from '../emp-dialog/emp-dialog.component';
 
 @Component({
   selector: 'app-reimb-employee',
@@ -12,14 +14,15 @@ import { UserService } from '../services/user.service';
 })
 export class ReimbEmployeeComponent implements OnInit {
   authenticated = false;
+  userId = this.userService.getUser().userId;
 
   displayedColumns: string[] = [
     'reimbursementSubmitted',
-    'reimbursementTypeId',
     'reimbursementAmount',
     'reimbursementResolved',
-    'reimbursementResolver',
-    'reimbursementStatusId',
+    'reimbursementType',
+    'resolverFullName',
+    'reimbursementStatus',
     'actions',
   ];
   dataSource!: MatTableDataSource<any>;
@@ -29,13 +32,13 @@ export class ReimbEmployeeComponent implements OnInit {
 
   constructor(
     private reimbService: ReimbService,
-    private userService: UserService
+    private userService: UserService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    const userId = this.userService.getUser().userId;
-    if (userId !== null) {
-      this.getAllReimbsByUserId(userId);
+    if (this.userId !== null) {
+      this.getAllReimbsByUserId(this.userId);
     } else {
       console.log('Something went wrong.');
     }
@@ -62,5 +65,28 @@ export class ReimbEmployeeComponent implements OnInit {
         console.log(err);
       },
     });
+  }
+
+  openDialog() {
+    this.dialog
+      .open(EmpDialogComponent, {
+        width: '50%',
+      })
+      .afterClosed()
+      .subscribe((value) => {
+        this.getAllReimbsByUserId(this.userId);
+      });
+  }
+
+  editRequest(row: any) {
+    this.dialog
+      .open(EmpDialogComponent, {
+        width: '50%',
+        data: row,
+      })
+      .afterClosed()
+      .subscribe((value) => {
+        this.getAllReimbsByUserId(this.userId);
+      });
   }
 }
