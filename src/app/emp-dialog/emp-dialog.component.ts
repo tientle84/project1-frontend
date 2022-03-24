@@ -77,7 +77,7 @@ export class EmpDialogComponent implements OnInit {
       )
       .subscribe({
         next: (res) => {
-          alert('Client updated successfully.');
+          alert('Request updated successfully.');
           this.reimbRequestForm.reset();
           this.dialogRef.close();
         },

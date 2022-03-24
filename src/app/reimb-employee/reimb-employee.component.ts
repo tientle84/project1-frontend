@@ -89,4 +89,16 @@ export class ReimbEmployeeComponent implements OnInit {
         this.getAllReimbsByUserId(this.userId);
       });
   }
+
+  deleteRequest(reimbId: number) {
+    this.reimbService.deleteRequest(this.userId, reimbId).subscribe({
+      next: (res) => {
+        alert('Request deleted successfully.');
+        this.getAllReimbsByUserId(this.userId);
+      },
+      error: (err) => {
+        alert(err.error);
+      },
+    });
+  }
 }

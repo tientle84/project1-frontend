@@ -9,9 +9,7 @@ export class ReimbService {
   constructor(private http: HttpClient) {}
 
   getAllReimbsByUserId(id: number) {
-    return this.http.get<any>(this.endpointUrl + id + '/reimbursements', {
-      withCredentials: true,
-    });
+    return this.http.get<any>(this.endpointUrl + id + '/reimbursements');
   }
 
   createRequest(id: number, data: any) {
@@ -22,6 +20,12 @@ export class ReimbService {
     return this.http.put<any>(
       this.endpointUrl + userId + '/reimbursements/' + reimbId,
       data
+    );
+  }
+
+  deleteRequest(userId: number, reimbId: number) {
+    return this.http.delete<any>(
+      this.endpointUrl + userId + '/reimbursements/' + reimbId
     );
   }
 }
