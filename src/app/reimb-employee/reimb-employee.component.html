@@ -23,7 +23,7 @@
   <table mat-table [dataSource]="dataSource" matSort>
     <!-- submitted column -->
     <ng-container matColumnDef="reimbursementSubmitted">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Submitted Date</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>SUBMITTED DATE</th>
       <td mat-cell *matCellDef="let row">
         {{ row.reimbursementSubmitted }}
       </td>
@@ -31,13 +31,15 @@
 
     <!-- amount column -->
     <ng-container matColumnDef="reimbursementAmount">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Amount</th>
-      <td mat-cell *matCellDef="let row">{{ row.reimbursementAmount }}</td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>AMOUNT</th>
+      <td mat-cell *matCellDef="let row">
+        {{ row.reimbursementAmount | currency }}
+      </td>
     </ng-container>
 
     <!-- resolved column -->
     <ng-container matColumnDef="reimbursementResolved">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Resolved Date</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>RESOLVED DATE</th>
       <td mat-cell *matCellDef="let row">
         {{ row.reimbursementResolved || "N/A" }}
       </td>
@@ -45,13 +47,13 @@
 
     <!-- type column -->
     <ng-container matColumnDef="reimbursementType">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>TYPE</th>
       <td mat-cell *matCellDef="let row">{{ row.reimbursementType }}</td>
     </ng-container>
 
     <!-- resolver column -->
     <ng-container matColumnDef="resolverFullName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Resolver</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>RESOLVER</th>
       <td mat-cell *matCellDef="let row">
         {{ row.resolverFullName || "N/A" }}
       </td>
@@ -59,7 +61,7 @@
 
     <!-- status column -->
     <ng-container matColumnDef="reimbursementStatus">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>STATUS</th>
       <td mat-cell *matCellDef="let row">
         {{ row.reimbursementStatus }}
       </td>
@@ -67,12 +69,18 @@
 
     <!-- actions column -->
     <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>ACTIONS</th>
       <td mat-cell *matCellDef="let row">
-        <button mat-icon-button color="primary" (click)="editRequest(row)">
+        <button
+          *ngIf="row.reimbursementStatus === 'Pending'"
+          mat-icon-button
+          color="primary"
+          (click)="editRequest(row)"
+        >
           <mat-icon>edit</mat-icon>
         </button>
         <button
+          *ngIf="row.reimbursementStatus === 'Pending'"
           mat-icon-button
           color="warn"
           (click)="deleteRequest(row.reimbursementId)"

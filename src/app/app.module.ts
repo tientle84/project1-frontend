@@ -20,6 +20,7 @@ import { UserService } from './services/user.service';
 import { RoleGuard } from './role.guard';
 import { MatDialogModule } from '@angular/material/dialog';
 import { EmpDialogComponent } from './emp-dialog/emp-dialog.component';
+import { ReceiptDialogComponent } from './receipt-dialog/receipt-dialog.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { EmpDialogComponent } from './emp-dialog/emp-dialog.component';
     ReimbEmployeeComponent,
     ReimbManagerComponent,
     EmpDialogComponent,
+    ReceiptDialogComponent,
   ],
   imports: [
     BrowserModule,

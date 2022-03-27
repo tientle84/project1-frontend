@@ -59,6 +59,7 @@ export class ReimbEmployeeComponent implements OnInit {
         console.log(res);
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;
+        this.dataSource.paginator.pageSize = 10;
         this.dataSource.sort = this.sort;
       },
       error: (err) => {

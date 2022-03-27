@@ -1,6 +1,7 @@
-<h1 mat-dialog-title>Add reimbursement request</h1>
+<h1 mat-dialog-title>{{ actionTitle }}</h1>
 <div mat-dialog-content>
   <form [formGroup]="reimbRequestForm">
+    <!-- reimbursement amount input -->
     <mat-form-field appearance="outline">
       <mat-label>Amount</mat-label>
       <input formControlName="reimbursementAmount" matInput />
@@ -13,6 +14,8 @@
         Please enter a valid amount.
       </div>
     </mat-form-field>
+
+    <!-- reimbursement description input -->
     <mat-form-field appearance="outline">
       <mat-label>Description</mat-label>
       <input formControlName="reimbursementDescription" matInput />
@@ -25,30 +28,54 @@
         Please enter description.
       </div>
     </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Receipt Image</mat-label>
-      <input formControlName="reimbursementReceipt" matInput />
-      <div
-        *ngIf="
-          reimbRequestForm.controls['reimbursementReceipt'].invalid &&
-          reimbRequestForm.controls['reimbursementReceipt'].touched
-        "
-      >
-        Please upload your receipt image file.
-      </div>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
+
+    <!-- reimbursement type selector -->
+    <mat-form-field appearance="fill">
       <mat-label>Type</mat-label>
-      <input formControlName="reimbursementTypeId" matInput />
+      <mat-select formControlName="reimbursementTypeId">
+        <mat-option
+          *ngFor="let reimbType of reimbTypes"
+          [value]="reimbType.value"
+        >
+          {{ reimbType.viewValue }}
+        </mat-option>
+      </mat-select>
       <div
         *ngIf="
           reimbRequestForm.controls['reimbursementTypeId'].invalid &&
           reimbRequestForm.controls['reimbursementTypeId'].touched
         "
       >
-        Please select your reimbursement type.
+        Please select the reimbursement type.
       </div>
     </mat-form-field>
+
+    <!-- receipt image show up when update reimbursement -->
+    <div>
+      <button mat-button (click)="openReceiptDialog()">
+        <img
+          *ngIf="receiptUrl != ''"
+          [src]="receiptUrl"
+          height="150px"
+          alt=""
+        />
+      </button>
+    </div>
+
+    <!-- upload file input -->
+    <div>
+      <mat-label>Receipt image *</mat-label><br />
+      <input
+        formControlName="reimbursementReceipt"
+        type="file"
+        #fileInput
+        id="uploadFile"
+        (change)="uploadFileEvt($event)"
+        name="uploadFile"
+        multiple="multiple"
+        accept="image/*"
+      />
+    </div>
   </form>
 </div>
 <div mat-dialog-actions [align]="'end'">
