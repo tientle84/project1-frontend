@@ -38,7 +38,7 @@ export class AuthInterceptor implements HttpInterceptor {
           this.router.navigate(['/forbidden']);
         }
 
-        return throwError('Something went wrong.');
+        return throwError(err);
       })
     );
   }

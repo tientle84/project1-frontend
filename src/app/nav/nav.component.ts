@@ -21,7 +21,7 @@ export class NavComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  public getUserName() {
+  public getUserFullName() {
     const fistName = this.userService.getUser().firstName;
     const lastName = this.userService.getUser().lastName;
     return fistName + ' ' + lastName;

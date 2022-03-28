@@ -3,6 +3,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +18,8 @@ export class LoginComponent implements OnInit {
   isLoggedIn = false;
   isLoginFailed = false;
   userRole = 0;
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
 
   public loginForm!: FormGroup;
 
@@ -20,8 +27,18 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private auth: AuthService,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    public snackBar: MatSnackBar
   ) {}
+
+  openSnackBar(message: string) {
+    this.snackBar.open(message, '', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 3000,
+      panelClass: ['blue-snackbar'],
+    });
+  }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -38,9 +55,6 @@ export class LoginComponent implements OnInit {
   login() {
     this.auth.login(this.loginForm.value).subscribe({
       next: (res) => {
-        console.log(res.headers.get('Token'));
-        console.log(res);
-
         this.userService.setToken(res.headers.get('Token'));
         this.userService.setUser(res.body);
 
@@ -52,8 +66,7 @@ export class LoginComponent implements OnInit {
         }
       },
       error: (err) => {
-        alert(err.error);
-        //console.log(err.error);
+        this.openSnackBar(err.error);
       },
     });
   }
