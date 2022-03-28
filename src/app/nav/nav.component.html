@@ -12,7 +12,9 @@
     <a routerLink="/login">Login</a>
   </div>
   <div *ngIf="isLoggedIn()">
-    <button mat-button [matMenuTriggerFor]="menu">{{ getUserName() }}</button>
+    <button mat-button [matMenuTriggerFor]="menu">
+      {{ getUserName() }}<mat-icon>arrow_drop_down</mat-icon>
+    </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item>Profile</button>
       <button mat-menu-item (click)="logout()">Logout</button>

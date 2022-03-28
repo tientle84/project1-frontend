@@ -6,3 +6,30 @@ table {
   font-size: 14px;
   width: 100%;
 }
+
+.mat-success {
+  background-color: green;
+  color: #fff;
+}
+
+.mat-pending {
+  background-color: gray;
+  color: white;
+}
+
+.mat-chip {
+  width: 120px;
+}
+
+.mat-raised-button {
+  width: 120px;
+  margin-right: 5px;
+}
+
+.mat-row:nth-child(even) {
+  background-color: white;
+}
+
+.mat-row:nth-child(odd) {
+  background-color: rgb(222, 222, 222);
+}

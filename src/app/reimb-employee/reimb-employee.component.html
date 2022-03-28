@@ -63,7 +63,38 @@
     <ng-container matColumnDef="reimbursementStatus">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>STATUS</th>
       <td mat-cell *matCellDef="let row">
-        {{ row.reimbursementStatus }}
+        <mat-chip-list aria-label="status-chips">
+          <mat-chip
+            *ngIf="row.reimbursementStatus === 'Pending'"
+            color="pending"
+            selected
+          >
+            <mat-chip-avatar>
+              <mat-icon>flag</mat-icon>
+            </mat-chip-avatar>
+            {{ row.reimbursementStatus }}
+          </mat-chip>
+          <mat-chip
+            *ngIf="row.reimbursementStatus === 'Approved'"
+            color="success"
+            selected
+          >
+            <mat-chip-avatar>
+              <mat-icon>check_circle</mat-icon>
+            </mat-chip-avatar>
+            {{ row.reimbursementStatus }}
+          </mat-chip>
+          <mat-chip
+            *ngIf="row.reimbursementStatus === 'Denied'"
+            color="warn"
+            selected
+          >
+            <mat-chip-avatar>
+              <mat-icon>highlight_off</mat-icon>
+            </mat-chip-avatar>
+            {{ row.reimbursementStatus }}
+          </mat-chip>
+        </mat-chip-list>
       </td>
     </ng-container>
 
@@ -73,19 +104,21 @@
       <td mat-cell *matCellDef="let row">
         <button
           *ngIf="row.reimbursementStatus === 'Pending'"
-          mat-icon-button
+          mat-raised-button
           color="primary"
           (click)="editRequest(row)"
         >
           <mat-icon>edit</mat-icon>
+          Edit
         </button>
         <button
           *ngIf="row.reimbursementStatus === 'Pending'"
-          mat-icon-button
+          mat-raised-button
           color="warn"
           (click)="deleteRequest(row.reimbursementId)"
         >
           <mat-icon>delete</mat-icon>
+          Delete
         </button>
       </td>
     </ng-container>

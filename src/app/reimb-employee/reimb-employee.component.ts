@@ -6,6 +6,11 @@ import { ReimbService } from '../services/reimb.service';
 import { UserService } from '../services/user.service';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EmpDialogComponent } from '../emp-dialog/emp-dialog.component';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-reimb-employee',
@@ -13,8 +18,9 @@ import { EmpDialogComponent } from '../emp-dialog/emp-dialog.component';
   styleUrls: ['./reimb-employee.component.scss'],
 })
 export class ReimbEmployeeComponent implements OnInit {
-  authenticated = false;
   userId = this.userService.getUser().userId;
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
 
   displayedColumns: string[] = [
     'reimbursementSubmitted',
@@ -33,13 +39,24 @@ export class ReimbEmployeeComponent implements OnInit {
   constructor(
     private reimbService: ReimbService,
     private userService: UserService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public snackBar: MatSnackBar
   ) {}
+
+  openSnackBar(message: string) {
+    this.snackBar.open(message, '', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 3000,
+      panelClass: ['blue-snackbar'],
+    });
+  }
 
   ngOnInit(): void {
     if (this.userId !== null) {
       this.getAllReimbsByUserId(this.userId);
     } else {
+      this.openSnackBar('Something went wrong.');
       console.log('Something went wrong.');
     }
   }
@@ -94,11 +111,11 @@ export class ReimbEmployeeComponent implements OnInit {
   deleteRequest(reimbId: number) {
     this.reimbService.deleteRequest(this.userId, reimbId).subscribe({
       next: (res) => {
-        alert('Request deleted successfully.');
+        this.openSnackBar('Request deleted successfully.');
         this.getAllReimbsByUserId(this.userId);
       },
       error: (err) => {
-        alert(err.error);
+        this.openSnackBar(err.error);
       },
     });
   }
