@@ -18,6 +18,10 @@ import {
   ConfirmDialogModel,
 } from '../confirm-dialog/confirm-dialog.component';
 
+interface ReimbStatus {
+  value: string;
+}
+
 @Component({
   selector: 'app-reimb-manager',
   templateUrl: './reimb-manager.component.html',
@@ -27,6 +31,15 @@ export class ReimbManagerComponent implements OnInit {
   userId = this.userService.getUser().userId;
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
+
+  reimbStatuses: ReimbStatus[] = [
+    { value: 'All' },
+    { value: 'Pending' },
+    { value: 'Approved' },
+    { value: 'Denied' },
+  ];
+
+  defaultSelected = 'All';
 
   displayedColumns: string[] = [
     'authorFullName',
@@ -69,15 +82,6 @@ export class ReimbManagerComponent implements OnInit {
     }
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-
   getAllReimbursement() {
     this.reimbService.getAllReimbursement().subscribe({
       next: (res) => {
@@ -88,7 +92,7 @@ export class ReimbManagerComponent implements OnInit {
         this.sort.sort({
           id: 'reimbursementStatus',
           start: 'desc',
-          disableClear: true,
+          disableClear: false,
         });
         this.dataSource.sort = this.sort;
       },
@@ -135,5 +139,20 @@ export class ReimbManagerComponent implements OnInit {
           this.authorizedReimb(reimbId, statusId);
         }
       });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    console.log(filterValue);
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  onStatusChange(event: any) {
+    const filterValue: string = event.value.trim();
+    this.dataSource.filter = filterValue !== 'All' ? filterValue : '';
   }
 }

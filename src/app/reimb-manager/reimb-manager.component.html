@@ -76,7 +76,20 @@
 
     <!-- status column -->
     <ng-container matColumnDef="reimbursementStatus">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>STATUS</th>
+      <th mat-header-cell *matHeaderCellDef>
+        STATUS
+        <mat-select
+          [(value)]="defaultSelected"
+          (selectionChange)="onStatusChange($event)"
+        >
+          <mat-option
+            *ngFor="let reimbStatus of reimbStatuses"
+            [value]="reimbStatus.value"
+          >
+            {{ reimbStatus.value }}
+          </mat-option>
+        </mat-select>
+      </th>
       <td mat-cell *matCellDef="let row">
         <mat-chip-list aria-label="status-chips">
           <mat-chip
