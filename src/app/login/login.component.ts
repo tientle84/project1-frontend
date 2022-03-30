@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
@@ -42,8 +42,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      username: [''],
-      password: [''],
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
 
     if (this.userService.getToken()) {
@@ -53,21 +53,23 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.auth.login(this.loginForm.value).subscribe({
-      next: (res) => {
-        this.userService.setToken(res.headers.get('Token'));
-        this.userService.setUser(res.body);
+    if (this.loginForm.valid) {
+      this.auth.login(this.loginForm.value).subscribe({
+        next: (res) => {
+          this.userService.setToken(res.headers.get('Token'));
+          this.userService.setUser(res.body);
 
-        const role = res.body.roleId;
-        if (role === 1) {
-          this.router.navigate(['/reimb-manager']);
-        } else {
-          this.router.navigate(['/reimb-employee']);
-        }
-      },
-      error: (err) => {
-        this.openSnackBar(err.error);
-      },
-    });
+          const role = res.body.roleId;
+          if (role === 1) {
+            this.router.navigate(['/reimb-manager']);
+          } else {
+            this.router.navigate(['/reimb-employee']);
+          }
+        },
+        error: (err) => {
+          this.openSnackBar(err.error);
+        },
+      });
+    }
   }
 }

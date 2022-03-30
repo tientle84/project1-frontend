@@ -11,6 +11,10 @@ import {
   MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
+import {
+  ConfirmDialogComponent,
+  ConfirmDialogModel,
+} from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-reimb-employee',
@@ -57,7 +61,6 @@ export class ReimbEmployeeComponent implements OnInit {
       this.getAllReimbsByUserId(this.userId);
     } else {
       this.openSnackBar('Something went wrong.');
-      console.log('Something went wrong.');
     }
   }
 
@@ -77,6 +80,11 @@ export class ReimbEmployeeComponent implements OnInit {
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;
         this.dataSource.paginator.pageSize = 10;
+        this.sort.sort({
+          id: 'reimbursementStatus',
+          start: 'desc',
+          disableClear: true,
+        });
         this.dataSource.sort = this.sort;
       },
       error: (err) => {
@@ -118,5 +126,22 @@ export class ReimbEmployeeComponent implements OnInit {
         this.openSnackBar(err.error);
       },
     });
+  }
+
+  confirmDialog(reimbId: number) {
+    const message = 'Are you sure you want to delete this request?';
+    const dialogData = new ConfirmDialogModel('Confirm Delete', message);
+    const dialogRef = this.dialog
+      .open(ConfirmDialogComponent, {
+        maxWidth: '400px',
+        data: dialogData,
+        disableClose: true,
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        if (result === true) {
+          this.deleteRequest(reimbId);
+        }
+      });
   }
 }

@@ -70,7 +70,10 @@ export class EmpDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.reimbRequestForm = this.formBuilder.group({
-      reimbursementAmount: ['', [Validators.required]],
+      reimbursementAmount: [
+        '',
+        [Validators.required, Validators.pattern('^[0-9]$')],
+      ],
       reimbursementDescription: ['', [Validators.required]],
       reimbursementReceipt: ['', [Validators.required]],
       //reimbursementReceiptImgUrl: [this.receiptUrl],
@@ -114,12 +117,6 @@ export class EmpDialogComponent implements OnInit {
         'reimbursementReceipt',
         this.reimbRequestForm.get('reimbursementReceipt')?.value
       );
-
-      //console.log(this.reimbRequestForm.value);
-      // console.log(formData.entries());
-      // for (var pair of formData.entries()) {
-      //   console.log(pair[0] + ', ' + pair[1]);
-      // }
 
       if (this.reimbRequestForm.valid) {
         this.reimbService.createRequest(this.userId, formData).subscribe({

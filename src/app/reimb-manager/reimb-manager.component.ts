@@ -13,6 +13,10 @@ import {
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
 import { HttpResponse } from '@angular/common/http';
+import {
+  ConfirmDialogComponent,
+  ConfirmDialogModel,
+} from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-reimb-manager',
@@ -81,6 +85,11 @@ export class ReimbManagerComponent implements OnInit {
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;
         this.dataSource.paginator.pageSize = 10;
+        this.sort.sort({
+          id: 'reimbursementStatus',
+          start: 'desc',
+          disableClear: true,
+        });
         this.dataSource.sort = this.sort;
       },
       error: (err) => {
@@ -111,16 +120,20 @@ export class ReimbManagerComponent implements OnInit {
       });
   }
 
-  //   authorizedReimb(reimbId: number, statusId: number) {
-  //     this.reimbService.authorizeReimbursement(reimbId, statusId).subscribe({
-  //       next: (res) => {
-  //         console.log(res);
-  //         this.openSnackBar('The reimbursement has been updated successfully.');
-  //         this.getAllReimbursement();
-  //       },
-  //       error: (err) => {
-  //         this.openSnackBar(err.error);
-  //       },
-  //     });
-  //   }
+  confirmDialog(reimbId: number, statusId: number) {
+    const message = 'Are you sure you want to authorize this request?';
+    const dialogData = new ConfirmDialogModel('Confirm Action', message);
+    const dialogRef = this.dialog
+      .open(ConfirmDialogComponent, {
+        maxWidth: '400px',
+        data: dialogData,
+        disableClose: true,
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        if (result === true) {
+          this.authorizedReimb(reimbId, statusId);
+        }
+      });
+  }
 }

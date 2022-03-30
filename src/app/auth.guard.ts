@@ -9,7 +9,7 @@ import {
 import { Observable } from 'rxjs';
 import { UserService } from './services/user.service';
 
-const roles = [1, 2]; // 1: manager, 2: employee
+//const roles = [1, 2]; // 1: manager, 2: employee
 
 @Injectable({
   providedIn: 'root',

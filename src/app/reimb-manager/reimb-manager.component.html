@@ -121,7 +121,7 @@
           *ngIf="row.reimbursementStatus === 'Pending'"
           mat-raised-button
           color="success"
-          (click)="authorizedReimb(row.reimbursementId, 2)"
+          (click)="confirmDialog(row.reimbursementId, 2)"
         >
           <mat-icon>check_circle</mat-icon>
           APPROVE
@@ -130,7 +130,7 @@
           *ngIf="row.reimbursementStatus === 'Pending'"
           mat-raised-button
           color="warn"
-          (click)="authorizedReimb(row.reimbursementId, 3)"
+          (click)="confirmDialog(row.reimbursementId, 3)"
         >
           <mat-icon>highlight_off</mat-icon>
           DENY

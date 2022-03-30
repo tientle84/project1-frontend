@@ -21,6 +21,7 @@ import { RoleGuard } from './role.guard';
 import { MatDialogModule } from '@angular/material/dialog';
 import { EmpDialogComponent } from './emp-dialog/emp-dialog.component';
 import { ReceiptDialogComponent } from './receipt-dialog/receipt-dialog.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { ReceiptDialogComponent } from './receipt-dialog/receipt-dialog.componen
     ReimbManagerComponent,
     EmpDialogComponent,
     ReceiptDialogComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,

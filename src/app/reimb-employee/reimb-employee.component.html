@@ -115,7 +115,7 @@
           *ngIf="row.reimbursementStatus === 'Pending'"
           mat-raised-button
           color="warn"
-          (click)="deleteRequest(row.reimbursementId)"
+          (click)="confirmDialog(row.reimbursementId)"
         >
           <mat-icon>delete</mat-icon>
           Delete

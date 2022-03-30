@@ -8,9 +8,6 @@
   </button>
   <span>Revature Reimbursement System</span>
   <span class="spacer"></span>
-  <div *ngIf="!isLoggedIn()">
-    <a routerLink="/login">Login</a>
-  </div>
   <div *ngIf="isLoggedIn()">
     <button mat-button [matMenuTriggerFor]="menu">
       {{ getUserFullName() }}<mat-icon>arrow_drop_down</mat-icon>
