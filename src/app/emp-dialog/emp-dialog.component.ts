@@ -72,7 +72,7 @@ export class EmpDialogComponent implements OnInit {
     this.reimbRequestForm = this.formBuilder.group({
       reimbursementAmount: [
         '',
-        [Validators.required, Validators.pattern('^[0-9]$')],
+        [Validators.required, Validators.pattern('^[0-9]*$')],
       ],
       reimbursementDescription: ['', [Validators.required]],
       reimbursementReceipt: ['', [Validators.required]],

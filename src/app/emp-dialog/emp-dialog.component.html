@@ -4,7 +4,7 @@
     <!-- reimbursement amount input -->
     <mat-form-field appearance="outline">
       <mat-label>Amount</mat-label>
-      <input formControlName="reimbursementAmount" matInput />
+      <input type="number" formControlName="reimbursementAmount" matInput />
       <div
         *ngIf="
           reimbRequestForm.controls['reimbursementAmount'].invalid &&
