@@ -14,6 +14,9 @@ import { Router } from '@angular/router';
 export class AuthInterceptor implements HttpInterceptor {
   constructor(private userService: UserService, private router: Router) {}
 
+  // this interceptor automatically adds the JWT token to the header
+  // every time we send any request to the backend,
+  // so that we don't need to add the JWT token header manually on every request
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
@@ -29,6 +32,8 @@ export class AuthInterceptor implements HttpInterceptor {
       });
     }
 
+    // if we get any error from backend's response
+    // then we need to redirect to appropriate pages
     return next.handle(authReq).pipe(
       catchError((err: HttpErrorResponse) => {
         console.log(err.status);
